@@ -1,25 +1,24 @@
-import React from 'react';
-import { Calendar, Search, LayoutDashboard, List } from 'lucide-react';
-import { User } from '../types/user';
-import { canCreateEvent } from '../utils/permissions';
-import { UserProfileDropdown } from './user/UserProfileDropdown';
+import { Calendar, Search, LayoutDashboard, List } from "lucide-react";
+import { User } from "../types/user";
+import { canCreateEvent } from "../utils/permissions";
+import { UserProfileDropdown } from "./user/UserProfileDropdown";
 
 interface HeaderProps {
   onCreateClick: () => void;
-  onViewChange: (view: 'events' | 'admin' | 'organizer') => void;
-  currentView: 'events' | 'admin' | 'organizer';
+  onViewChange: (view: "events" | "admin" | "organizer") => void;
+  currentView: "events" | "admin" | "organizer";
   user: User | null;
   onAuthClick: () => void;
   onLogout: () => void;
 }
 
-export function Header({ 
-  onCreateClick, 
-  onViewChange, 
+export function Header({
+  onCreateClick,
+  onViewChange,
   currentView,
   user,
   onAuthClick,
-  onLogout
+  onLogout,
 }: HeaderProps) {
   return (
     <header className="bg-white shadow-sm">
@@ -27,9 +26,11 @@ export function Header({
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <Calendar className="h-8 w-8 text-indigo-600" />
-            <span className="ml-2 text-xl font-bold text-gray-900">LocalEvents</span>
+            <span className="ml-2 text-xl font-bold text-gray-900">
+              LocalEvents
+            </span>
           </div>
-          
+
           <div className="flex-1 max-w-lg mx-8">
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -46,24 +47,24 @@ export function Header({
           <div className="flex items-center space-x-4">
             <div className="flex rounded-lg overflow-hidden">
               <button
-                onClick={() => onViewChange('events')}
+                onClick={() => onViewChange("events")}
                 className={`px-4 py-2 flex items-center text-sm font-medium ${
-                  currentView === 'events'
-                    ? 'bg-indigo-600 text-white'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  currentView === "events"
+                    ? "bg-indigo-600 text-white"
+                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                 }`}
               >
                 <List className="w-4 h-4 mr-2" />
                 Events
               </button>
-              
-              {user?.role === 'organizer' && (
+
+              {user?.role === "organizer" && (
                 <button
-                  onClick={() => onViewChange('organizer')}
+                  onClick={() => onViewChange("organizer")}
                   className={`px-4 py-2 flex items-center text-sm font-medium ${
-                    currentView === 'organizer'
-                      ? 'bg-indigo-600 text-white'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    currentView === "organizer"
+                      ? "bg-indigo-600 text-white"
+                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                   }`}
                 >
                   <LayoutDashboard className="w-4 h-4 mr-2" />
@@ -71,13 +72,13 @@ export function Header({
                 </button>
               )}
 
-              {user?.role === 'admin' && (
+              {user?.role === "admin" && (
                 <button
-                  onClick={() => onViewChange('admin')}
+                  onClick={() => onViewChange("admin")}
                   className={`px-4 py-2 flex items-center text-sm font-medium ${
-                    currentView === 'admin'
-                      ? 'bg-indigo-600 text-white'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    currentView === "admin"
+                      ? "bg-indigo-600 text-white"
+                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                   }`}
                 >
                   <LayoutDashboard className="w-4 h-4 mr-2" />
@@ -87,7 +88,7 @@ export function Header({
             </div>
 
             {canCreateEvent(user) && (
-              <button 
+              <button
                 onClick={onCreateClick}
                 className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >

@@ -1,13 +1,12 @@
-import React from 'react';
-import { Calendar, MapPin, Users, Ticket } from 'lucide-react';
-import { Event } from '../types/event';
-import { Comment } from '../types/comment';
-import { User } from '../types/user';
-import { format } from 'date-fns';
-import { EventActions } from './EventActions';
-import { CommentCount } from './comments/CommentCount';
-import { getEventImage } from '../utils/imageUtils';
-import { canEditEvent } from '../utils/permissions';
+import { Calendar, MapPin, Users, Ticket } from "lucide-react";
+import { Event } from "../types/event";
+import { Comment } from "../types/comment";
+import { User } from "../types/user";
+import { format } from "date-fns";
+import { EventActions } from "./EventActions";
+import { CommentCount } from "./comments/CommentCount";
+import { getEventImage } from "../utils/imageUtils";
+import { canEditEvent } from "../utils/permissions";
 
 interface EventCardProps {
   event: Event;
@@ -26,19 +25,20 @@ export function EventCard({
   onSelect,
   onEdit,
   onDelete,
-  onCommentClick
+  onCommentClick,
 }: EventCardProps) {
   const soldOut = event.remainingSpots === 0;
-  const eventComments = comments.filter(comment => comment.eventId === event.id);
+  const eventComments = comments.filter(
+    (comment) => comment.eventId === event.id
+  );
   const showActions = canEditEvent(user, event.organizer);
 
-  const handleCommentClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
+  const handleCommentClick = () => {
     onCommentClick(event);
   };
 
   return (
-    <div 
+    <div
       onClick={() => onSelect(event)}
       className="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:scale-[1.02] cursor-pointer relative"
     >
@@ -48,8 +48,8 @@ export function EventCard({
           onDelete={() => onDelete(event)}
         />
       )}
-      <img 
-        src={getEventImage(event.imageUrl)} 
+      <img
+        src={getEventImage(event.imageUrl)}
         alt={event.title}
         className="w-full h-48 object-cover"
         onError={(e) => {
@@ -69,25 +69,27 @@ export function EventCard({
           )}
         </div>
         <h3 className="text-xl font-bold text-gray-900 mb-2">{event.title}</h3>
-        <p className="text-gray-600 text-sm mb-4 line-clamp-2">{event.description}</p>
-        
+        <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+          {event.description}
+        </p>
+
         <div className="space-y-2">
           <div className="flex items-center text-gray-500">
             <Calendar className="w-4 h-4 mr-2" />
-            <span className="text-sm">{format(event.date, 'PPP')}</span>
+            <span className="text-sm">{format(event.date, "PPP")}</span>
           </div>
-          
+
           <div className="flex items-center text-gray-500">
             <MapPin className="w-4 h-4 mr-2" />
             <span className="text-sm">{event.location}</span>
           </div>
-          
+
           <div className="flex items-center justify-between">
             <div className="flex items-center text-gray-500">
               <Users className="w-4 h-4 mr-2" />
               <span className="text-sm">{event.remainingSpots} spots left</span>
             </div>
-            
+
             <div className="flex items-center text-gray-500">
               <Ticket className="w-4 h-4 mr-2" />
               <span className="text-sm font-semibold">
